@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.crane</groupId>
+    <artifactId>crane</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>crane-web</artifactId>
+  <packaging>war</packaging>
+  
+   <dependencies>
+	    <dependency>
+	        <groupId>com.crane</groupId>
+	    <artifactId>crane-common</artifactId>
+	        <version>1.0.0</version>
+	    </dependency>
+	    
+	    <dependency>
+	            <groupId>javax.servlet</groupId>
+	            <artifactId>servlet-api</artifactId>
+	            <version>2.5</version>
+	            <scope>provided</scope>
+	    </dependency>
+	    
+	    <!-- jetty -->
+	    <dependency>
+	        <groupId>org.mortbay.jetty</groupId>
+	        <artifactId>jetty</artifactId>
+	        <version>6.1.22</version>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.mortbay.jetty</groupId>
+	        <artifactId>jsp-2.1-jetty</artifactId>
+	        <version>6.1.22</version>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.eclipse.jetty</groupId>
+	        <artifactId>jetty-webapp</artifactId>
+	        <scope>test</scope>
+	        <version>7.2.2.v20101205</version>
+	        <!-- <version>9.2.21.v20170120</version> -->
+	        <optional>true</optional>
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>net.pusuo</groupId>
+	        <artifactId>patchca</artifactId>
+	        <version>0.5.0</version>
+	    </dependency>
+    </dependencies>
+</project>

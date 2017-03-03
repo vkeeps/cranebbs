@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	 http://www.springframework.org/schema/context 
+	 http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/jdbc 
+     http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+     http://www.springframework.org/schema/tx 
+     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+     http://www.springframework.org/schema/task 
+	 http://www.springframework.org/schema/task/spring-task-4.2.xsd">
+     
+     <!-- 启用注解 -->
+	<context:annotation-config />
+
+	<!-- 包扫描 -->
+	<context:component-scan base-package="com.crane">     
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+
+	<!-- PropertyPlaceholderConfigurer,用于spring ${placeholder}的解析 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="properties" ref="applicationProperties" />
+	</bean>
+	
+	<!-- 应用属性文件读入 -->
+	<bean id="applicationProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:web-config.properties</value>
+				<value>file:/webser/java_config/crane/web-config.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 数据源配置，采用德鲁伊数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"  
+        destroy-method="close">  
+        <property name="url" value="${druid.url}" />  
+        <property name="username" value="${druid.username}" />  
+        <property name="password" value="${druid.password}" />  
+        <property name="driverClassName" value="${druid.driverClassName}" />  
+        <property name="filters" value="${druid.filters}" />  
+  
+        <property name="maxActive" value="${druid.maxActive}" />  
+        <property name="initialSize" value="${druid.initialSize}" />  
+        <property name="maxWait" value="${druid.maxWait}" />  
+        <property name="minIdle" value="${druid.minIdle}" />  
+  
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />  
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />  
+  
+        <property name="validationQuery" value="${druid.validationQuery}" />  
+        <property name="testWhileIdle" value="${druid.testWhileIdle}" />  
+        <property name="testOnBorrow" value="${druid.testOnBorrow}" />  
+        <property name="testOnReturn" value="${druid.testOnReturn}" />  
+        <property name="maxOpenPreparedStatements"    value="${druid.maxOpenPreparedStatements}" />  
+        <property name="removeAbandoned" value="${druid.removeAbandoned}" /> <!-- 打开removeAbandoned功能 -->  
+        <property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" /> <!-- 1800秒，也就是30分钟 -->  
+        <property name="logAbandoned" value="${druid.logAbandoned}" /> <!-- 关闭abanded连接时输出错误日志 -->  
+    </bean> 
+    
+    <!-- 扫描所有的mapper.xml -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+		<property name="dataSource" ref="dataSource" />  
+		<property name="configLocation" value="classpath:mybatis.xml"/>
+		<property name="mapperLocations" value="classpath*:com/crane/mapper/*.xml"></property>
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0"  ref="sqlSessionFactory" />
+	</bean>
+   
+    <!-- 注解mapper，扫描mapper下的所有mapper -->
+  	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.crane.mapper" />
+	</bean>
+   
+    <!-- 配置ibatis的局部事务管理器，使用DataSourceTransactionManager类-->
+    <tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<task:annotation-driven />
+	
+</beans>

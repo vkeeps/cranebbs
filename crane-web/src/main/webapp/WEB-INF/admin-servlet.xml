@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		 http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<!-- 注解说明 -->
+	 <context:component-scan base-package="com.crane">     
+		 <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	 </context:component-scan>
+	 
+	<!-- 静态资源 -->
+	<mvc:resources location="/page/" mapping="/page/**"/>
+	<mvc:resources location="/resource/" mapping="/resource/**"/>
+	<mvc:resources location="/upload/" mapping="/upload/**"/>
+
+	<!-- aop支持 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+   <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >  
+        <property name="messageConverters">  
+            <list>  
+                <ref bean="mappingJacksonHttpMessageConverter"/>  
+            </list>  
+        </property>  
+    </bean>  
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+        <property name="supportedMediaTypes">  
+            <list>  
+                <value>text/html;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>    
+            </list>  
+        </property>  
+    </bean>
+    
+	<!-- freemarker的配置 -->
+	<bean id="freemarkerResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<!-- 页面后缀 -->
+        <property name="suffix" value=".html" />
+        <property name="contentType" value="text/html;charset=utf-8" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="exposeRequestAttributes" value="true" />
+	    <property name="exposeSessionAttributes" value="true" />
+	    <property name="exposeSpringMacroHelpers" value="true" />
+    </bean>
+
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/" />
+        <property name="freemarkerSettings"><!-- 设置FreeMarker环境属性 -->
+            <props>
+                <prop key="default_encoding">UTF-8</prop><!--模板的编码格式 -->
+                <prop key="template_update_delay">1</prop><!--刷新模板的周期，单位为秒 -->
+                <prop key="locale">UTF-8</prop><!-- 本地化设置 -->
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="number_format">0</prop> 
+                <prop key="whitespace_stripping">true</prop>
+                <prop key="tag_syntax">auto_detect</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <!-- 配置自定义的freemarker异常处理-->
+                <prop key = "template_exception_handler">com.crane.exception.FreemarkerExceptionHandler</prop>
+            </props>
+        </property>
+    </bean>  
+    
+     <!--上传文件所需要的bean-->
+	 <bean id="multipartResolver"     
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"     
+		  p:defaultEncoding="utf-8" />    
+		  
+	<mvc:annotation-driven conversion-service="conversionService"/> 	 
+	<bean id="conversionService"
+        class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <!-- <bean class="com.crane.po.convert.ArticleTypeConvertor" />
+                <bean class="com.crane.po.convert.ExamChooseTypeConvertor" />
+                <bean class="com.crane.po.convert.TopicTypeConvertor" />
+                <bean class="com.crane.po.convert.VoteTypeConvertor" />
+                <bean class="com.crane.po.convert.SloveTypeConvertor" />
+                <bean class="com.crane.po.convert.StatutsConvertor" /> -->
+            </list>
+        </property>
+    </bean>
+</beans>
