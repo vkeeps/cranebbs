@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+    <!-- shiro权限分配处理配置 -->    
+	<bean id="shiroFilterFactoryBean" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login/toLoginPage" />
+		<property name="successUrl" value="/login/index" />
+		<property name="unauthorizedUrl" value="/modules/unan.html" />
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- 后期实际应用可采取正则模糊匹配,但要避免包含了静态资源的路径导致加载静态资源时也执行这个权限验证 -->
+				/login/adminView=authc,resourceCheckFilter
+				/login/testView=authc,resourceCheckFilter
+				/login/guestView=authc,resourceCheckFilter
+				<!-- user 表示该方法支持remember的用户访问 -->
+				/login/rememberMethod=user
+				/permission/**=authc,resourceCheckFilter
+				/admin/**.html=authc,resourceCheckFilter
+				/admin/**.jsp=authc,resourceCheckFilter
+				/admin/user/**.html=authc,resourceCheckFilter
+				/admin/user/**.jsp=authc,resourceCheckFilter
+				/admin/menu/**.html=authc,resourceCheckFilter
+				/admin/menu/**.jsp=authc,resourceCheckFilter
+				<!--shiro不拦截首页 -->
+				/=anon
+				<!-- shiro不拦截resources下的资源 -->
+				/resources/**=anon
+				<!-- shiro不拦截modules下的资源 -->
+				/modules/**=anon
+				<!-- shiro不拦截public下的资源 -->
+				/public/**=anon
+				/admin/**=anon
+				/user/**=anon
+				<!-- 此处login被上面的覆盖了,可能会执行shiro权限校验 -->
+				/login/**=anon
+				<!-- /login/login=anon -->
+				<!-- /error=anon -->
+				/admin=authc,roles[admin]
+				/noAuth=roles[noAuth]
+				<!-- /**=authc -->
+			</value>
+		</property>
+	</bean>
+
+	<!-- shiro核心配置 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!--设置自定义realm,实现用户认证以及授权的操作 -->
+		<property name="realm" ref="monitorRealm" />
+		<!-- 设置自定义的权限验证方法,用于判定用户是否能对特定的菜单进行操作 -->
+		<property name="authorizer.permissionResolver" ref="permissionResolver" />
+		<!-- 设置全局session超时时间 -->
+		<property name="sessionManager" ref="sessionManager"></property>
+		<!-- 记住我配置 -->
+		<property name="rememberMeManager" ref="rememberMeManager" />
+	</bean>
+	<!-- 全局超时时间 -->
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO" />
+		<!-- 1800000 半小时 10000 十秒 -->
+		<property name="globalSessionTimeout" value="1800000" />
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+	</bean>
+	<bean id="sessionDAO"
+		class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+	</bean>
+	<bean id="sessionValidationScheduler"
+		class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<!-- 每半小时检查一次是否过期 -->
+		<property name="interval" value="1800000" />
+	</bean>
+	<!-- shiro生命周期 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!--自定义Realm 继承自AuthorizingRealm -->
+	<bean id="monitorRealm" class="com.crane.realm.UserRealm">
+		<!-- 注入自定义密码校验方法,可在该bean中设置短时间内最大尝试次数 -->
+		<property name="credentialsMatcher" ref="credentialsMatcher" />
+		<property name="cachingEnabled" value="true" />
+		<property name="authenticationCachingEnabled" value="true" />
+		<property name="authenticationCacheName" value="authenticationCache" />
+		<property name="authorizationCachingEnabled" value="true" />
+		<property name="authorizationCacheName" value="authorizationCache" />
+	</bean>
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher" class="com.crane.util.RetryLimitHashedCredentialsMatcher">
+		<constructor-arg ref="cacheManager" />
+		<!-- 此处设置短时间内出错次数 -->
+		<property name="errorTimes" value="6"></property>
+		<!-- 设置SHIRO加密方式,需要和util里的加密方法保持一致 -->
+		<property name="hashAlgorithmName" value="MD5" />
+		<!-- 设置SHIRO加密次数 -->
+		<property name="hashIterations" value="3" />
+		<property name="storedCredentialsHexEncoded" value="true" />
+	</bean>
+	<!-- securityManager -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+
+	<!-- Enable Shiro Annotations for Spring-configured beans. Only run after -->
+	<!-- the lifecycleBeanProcessor has run: -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	<!-- 缓存管理器 使用Ehcache实现 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
+	</bean>
+	<!-- URL权限验证方法 -->
+	<bean id="resourceCheckFilter" class="com.crane.filter.ResourceCheckFilter">
+		<!-- 设置当前用户无权限访问当前链接时跳转的页面 -->
+		<property name="unanUrl" value="modules/unan.html"></property>
+	</bean>
+	<bean id="permissionResolver" class="com.crane.permission.UrlPermissionResolver" />
+	<!-- remenberMe配置 -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<!-- 默认记住7天（单位：秒） -->
+		<property name="maxAge" value="604800" />
+	</bean>
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cipherKey"
+			value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+</beans>  

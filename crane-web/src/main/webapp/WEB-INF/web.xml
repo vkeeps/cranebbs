@@ -1,20 +1,34 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="3.0"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 
-<!-- 上下文参数配置 -->
+	<!-- 上下文参数配置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:spring*.xml</param-value>
 	</context-param>
-	
+
 	<!-- spring配置 -->
 	<listener>
 		<listener-class>com.crane.listener.CraneContextLoaderListener</listener-class>
 	</listener>
-	
+
+	<!-- shiro相关filter配置 -->
+	<!-- <filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>shiroFilterFactoryBean</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+
 	<!-- 编码过滤 -->
 	<filter>
 		<filter-name>encodingEncoding</filter-name>
@@ -32,7 +46,7 @@
 		<filter-name>encodingEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!-- 权限过滤 -->
 	<filter>
 		<filter-name>authorityFilter</filter-name>
@@ -42,7 +56,7 @@
 		<filter-name>authorityFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!-- 防止xss攻击 -->
 	<filter>
 		<filter-name>xssFilter</filter-name>
@@ -58,9 +72,9 @@
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
-		  	<param-name>contextConfigLocation</param-name>
-		  	<param-value>/WEB-INF/admin-servlet.xml</param-value>
-        </init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/admin-servlet.xml</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
@@ -68,7 +82,7 @@
 	</servlet-mapping>
 	<!-- session超时时间 单位秒 -->
 	<session-config>
-	    <session-timeout>30</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 	<!-- 相关错误页 -->
 	<error-page>
