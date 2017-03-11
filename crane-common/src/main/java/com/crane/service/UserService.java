@@ -1,11 +1,3 @@
-/**
- * Project Name:ulewo-web
- * File Name:UserService.java
- * Package Name:com.ulewo.service.impl
- * Date:2015年9月19日下午4:50:03
- * Copyright (c) 2015, ulewo.com All Rights Reserved.
- *
-*/
 
 package com.crane.service;
 
@@ -16,9 +8,9 @@ import com.crane.po.vo.PaginationResult;
 
 /**
  * ClassName:UserService <br/>
- * Date:     2015年9月19日 下午4:50:03 <br/>
+ * Date:     2016年9月19日 下午4:50:03 <br/>
  * @author   多多洛
- * Copyright (c) 2015, ulewo.com All Rights Reserved. 
+ * Copyright (c) 2016, ulewo.com All Rights Reserved. 
  */
 public interface UserService {
 	/**
@@ -73,7 +65,7 @@ public interface UserService {
 	 * @throws BusinessException
 	 * @since JDK 1.7
 	 */
-	public User login(String account, String password, Boolean encodePwd) throws BusinessException;
+	public User login(String account, String password) throws BusinessException;
 
 	/**
 	 * 

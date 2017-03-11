@@ -1,9 +1,9 @@
 /**
- * Project Name:ulewo-common
+ * Project Name:crane-common
  * File Name:DateEnum.java
- * Package Name:com.ulewo.po.enums
+ * Package Name:com.crane.po.enums
  * Date:2015年9月26日上午8:55:22
- * Copyright (c) 2015, ulewo.com All Rights Reserved.
+ * Copyright (c) 2015, crane.com All Rights Reserved.
  *
 */
 
@@ -13,7 +13,7 @@ package com.crane.po.enums;
  * ClassName:DateEnum <br/>
  * Date:     2015年9月26日 上午8:55:22 <br/>
  * @author   多多洛
- * Copyright (c) 2015, ulewo.com All Rights Reserved. 
+ * Copyright (c) 2015, crane.com All Rights Reserved. 
  */
 public enum DateTimePatternEnum {
 	YYYY_MM_DD_HH_MM_SS("yyyy-MM-dd HH:mm:ss"), YYYYMM("yyyyMM"), YYYY("YYYY"), MM_POINT_DD("MM.dd"), YYYY_MM_DD(

@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.crane.utils.ServerUtils;
 import com.crane.utils.SpringContextUtil;
 
 public class CraneContextLoaderListener extends ContextLoaderListener {
@@ -19,9 +20,9 @@ public class CraneContextLoaderListener extends ContextLoaderListener {
 		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 		SpringContextUtil.setContext(ctx);
 		//设置服务器相关路径
-		/*ServerUtils.setRealPath(context.getRealPath(""));
+		ServerUtils.setRealPath(context.getRealPath(""));
 		//初始化分类
-		CategoryCache.refreshCategoryCache();
+		/*CategoryCache.refreshCategoryCache();
 
 		InitTask initTask = new InitTask();
 		initTask.onApplicationEvent();*/

@@ -131,7 +131,7 @@ public class AuthorityFilter implements Filter {
 					String infos[] = info.split("\\|");
 
 					UserService userService = (UserServiceImpl) SpringContextUtil.getBean("userService");
-					User user = userService.login(infos[0], infos[1], false);
+					User user = userService.login(infos[0],infos[1]);
 					if (user != null) {
 						SessionUser loginUser = new SessionUser();
 						loginUser.setUserId(user.getUserId());

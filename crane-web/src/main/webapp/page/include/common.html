@@ -1,0 +1,19 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="${absolutePath}/resource/js/common/jquery-1.12.0.min.js"></script>
+<script src="${absolutePath}/resource/js/common/bootstrap.min.js"></script>
+<script src="${absolutePath}/resource/js/common/crane.js"></script>
+<link rel="stylesheet" href="${absolutePath}/resource/css/common/bootstrap.min.css">
+<link rel="stylesheet" href="${absolutePath}/resource/css/common/public.css">
+<script type="text/javascript">
+	var crane = {};
+	crane.resultCode = {
+		"SUCCESS":200,
+		"LOGINTIMEOUT":401,
+		"NOPERMISSION":403,
+		"CODEERROR":425,
+		"MOREMAXLOGINCOUNT":405
+	};
+	crane.absolutePath = "${absolutePath}";
+	crane.curUrl = window.location.href;
+</script>

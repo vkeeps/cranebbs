@@ -1,11 +1,3 @@
-/**
- * Project Name:ulewo-common
- * File Name:Constants.java
- * Package Name:com.ulewo.utils
- * Date:2015年9月19日下午5:24:42
- * Copyright (c) 2015, ulewo.com All Rights Reserved.
- *
-*/
 
 package com.crane.utils;
 
@@ -18,7 +10,8 @@ package com.crane.utils;
 public class Constants {
 	public static final int LENGTH_20 = 20, LENGTH_6 = 6, LENGTH_16 = 16;
 
-	public static final String USER_IMG_PATH_USER_ICON = "usericon", USER_IMG_PATH_USER_BG = "defbg/bg";
+	//用户头像和背景图，images文件夹下
+	public static final String USER_IMG_PATH_USER_ICON = "usericon", USER_IMG_PATH_USER_BG = "/resource/images/defbg/bg";
 
 	public static final String PATH_UPLOAD = "/upload/";
 

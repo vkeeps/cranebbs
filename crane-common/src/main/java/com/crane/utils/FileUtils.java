@@ -17,9 +17,9 @@ import java.nio.channels.FileChannel;
 
 /**
  * ClassName:FileUtils <br/>
- * Date:     2015年11月29日 下午4:25:49 <br/>
+ * Date:     2016年11月29日 下午4:25:49 <br/>
  * @author   多多洛
- * Copyright (c) 2015, ulewo.com All Rights Reserved. 
+ * Copyright (c) 2016, ulewo.com All Rights Reserved. 
  */
 public class FileUtils {
 	public static void copyFile(File sourcefile, File targetFile) {

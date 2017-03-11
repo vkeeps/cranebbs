@@ -16,28 +16,28 @@ public class ConfigInfo {
 	/**
 	 *找回密码发送的邮箱地址
 	 */
-	@Value("#{applicationProperties['ulewo.email.findemail']}")
+	@Value("#{applicationProperties['crane.email.findemail']}")
 	private String findemail;
 
 	/**
 	 * 找回密码发送邮箱的密码
 	 */
-	@Value("#{applicationProperties['ulewo.emial.findpwd']}")
+	@Value("#{applicationProperties['crane.emial.findpwd']}")
 	private String findpwd;
 
-	/*@Value("#{applicationProperties['ulewo.solr.server.url']}")
+	/*@Value("#{applicationProperties['crane.solr.server.url']}")
 	private String solrServerUrl;
 
-	@Value("#{applicationProperties['ulewo.solr.time.out']}")
+	@Value("#{applicationProperties['crane.solr.time.out']}")
 	private int solrTimeOut;
 
-	@Value("#{applicationProperties['ulewo.solr.max.totalconnections']}")
+	@Value("#{applicationProperties['crane.solr.max.totalconnections']}")
 	private int maxTotalConnections;
 
-	@Value("#{applicationProperties['ulewo.solr.max.connections.per.host']}")
+	@Value("#{applicationProperties['crane.solr.max.connections.per.host']}")
 	private int maxConnectionsPerHost;
 
-	@Value("#{applicationProperties['ulewo.solr.open']}")
+	@Value("#{applicationProperties['crane.solr.open']}")
 	private boolean openSolr;*/
 
 	public String getFindemail() {

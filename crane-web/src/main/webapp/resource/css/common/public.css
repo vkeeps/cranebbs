@@ -1,0 +1,66 @@
+body{margin: 0px auto;padding: 0px;}
+*{font-family: 'Microsoft Yahei','Helvetica Neue',sans-serif,SimHei;font-size: 13px;}
+.head{
+    background: #458FCE;
+    min-height: 100px;
+    padding-top: 20px;
+    text-align: center;
+}
+.head .head-logo{
+    width: auto;
+}
+
+.head .head-logo a{
+    font-size: 18px;
+    color: #ffffff;
+    text-decoration: none;
+}
+.head .head-logo a h3{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.head .header-user-info{
+    padding-top: 16px;
+    padding-bottom: 6px;
+}
+.head .header-user-info .no-login{
+    text-align: center;
+    margin-top: 5px;
+    float: left;
+}
+.head .header-user-info .no-login .line{
+    display: inline-block;
+    padding: 0px 6px;
+    color: #ffffff;
+}
+.head .header-user-info .no-login a{
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+}.head .header-user-info .no-login a:hover{
+    color: #ff5c18;
+}
+/*图标区*/
+.head .header-user-info .icon-search{
+    background: url("../icon/search-icon1.png") 0 0 no-repeat;
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+    margin-right: 8px;
+    float: left;
+    cursor: pointer;
+}
+.head .header-user-info .icon-search:hover{
+    background: url("../icon/search-icon2.png") 0 0 no-repeat;
+}
+
+/************导航****************/
+.banner{background: #ECEEEE;text-align: center;position: relative;}
+.banner-menu{margin: 0px auto;text-align: left;}
+.banner-menu ul{list-style: none;}
+.banner-menu ul li{float: left;}
+.banner-menu ul li a{font-size: 18px;padding-left: 30px;padding-right: 30px;color: #5F6060;}
+.banner-menu ul li a:hover,.banner-menu ul li.active a{color:#458FCE}
+.banner-menu .banner-menu-line{height:3px;background:#336a9a;position:absolute;top:46px;}

@@ -1,0 +1,82 @@
+<div class="head">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2 left head-logo">
+                <a href="#">
+                    <h3>&nbsp;修&nbsp;仙</h3>
+                    <h5>www.xiuxian.com</h5>
+                </a>
+            </div>
+            <div class="col-sm-3 col-sm-offset-7 right header-user-info">
+                <i class="icon-search" id="search-btn"></i>
+                <div class="no-login">
+                    <a href="#">登录</a>
+                    <span class="line">|</span>
+                    <a href="#">加入我们</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="nav banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                    <span class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">切换导航</span>
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                    </span>
+                </div>
+                <div class="navbar-collapse collapse banner-menu" id="main-menu" role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="${absolutePath}">首&nbsp;页</a></li>
+                        <li><a href="${absolutePath}/signin" title="签到">签&nbsp;到</a></li>
+                        <li><a href="${absolutePath}/spitslot" title="吐槽">吐&nbsp;槽</a></li>
+                        <li><a href="${absolutePath}/bbs" title="讨论区">讨论区</a></li>
+                        <li><a href="${absolutePath}/ask" title="问答">问&nbsp;答</a></li>
+                        <li><a href="${absolutePath}/blog" title="博客">博&nbsp;客</a></li>
+                        <li><a href="${absolutePath}/knowledge" title="知识库">知识库</a></li>
+                    </ul>
+                    <div class="banner-menu-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+    	crane.menus = [crane.absolutePath+"/","signIn","spitslot","exam","knowledge","bbs","ask","blog","source_code"];
+		crane.ignoreMenus = ["login","register"];
+	     for(var i=0,_len=crane.ignoreMenus.length,item;i<_len,item=crane.ignoreMenus[i];i++){
+		 	if(crane.curUrl.indexOf(item)!=-1){
+		     	 return;
+		    }
+	     };
+	     for(var i=0,_len=crane.menus.length,item;i<_len,item=crane.menus[i];i++){
+	         //首页单独处理
+	         if(item==crane.curUrl&&crane.curUrl.indexOf("user")==-1){
+	     		$(".banner-menu ul li").eq(0).addClass("active");
+	     		break;
+	         }
+	         if(crane.curUrl.indexOf(item)!=-1&&i>0&&crane.curUrl.indexOf("user")==-1){
+	     	    $(".banner-menu ul li").eq(i).addClass("active");
+	     	   
+	     	    break;
+	         }
+	     };
+        var li_width = $(".banner-menu ul li.active").outerWidth();
+        var li_left = $(".banner-menu ul li.active").position().left;
+        $(".banner-menu .banner-menu-line").css({width:li_width,left:li_left});
+        $(".banner-menu ul li").hover(function(){
+            var li_width = $(this).outerWidth();
+            var li_left = $(this).position().left;
+            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},200);
+        },function(){
+            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},300);
+        });
+    });
+</script>
+<script src="${absolutePath}/resource/js/common/particle.js" count="388" zindex="-2" opacity="0.8" color="66,135,193" type="text/javascript"></script>html>

@@ -3,13 +3,14 @@ package com.crane.exception;
 /**
  * 
  * ClassName: BusinessException
- * date: 2015年8月9日 下午12:02:55 
+ * date: 2016年8月9日 下午12:02:55 
  * @author 多多洛
  * @version 
  * @since JDK 1.7
  */
 public class BusinessException extends Exception {
-	private static final long serialVersionUID = 2874310081615076500L;
+
+	private static final long serialVersionUID = 4773715628154645163L;
 
 	public BusinessException(String message, Throwable e) {
 		super(message, e);

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crane.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.crane.po.model.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="user_bg" property="userBg" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="characters" property="characters" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="work" property="work" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="activation_code" property="activationCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="base_condition" >
+    <where >
+     	<if test="null!=userName and ''!=userName">
+     		AND user_name = #{userName}
+     	</if>
+     	<if test="null!=email and ''!=email">
+     		AND email = #{email}
+     	</if>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    user_id, email, user_name, password, user_icon, user_bg, birthday, sex, characters, 
+    mark, address, work, register_time, last_login_time, activation_code
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from crane_user <include refid="base_condition" />
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer">
+  	select count(1) from crane_user <include refid="base_condition" />
+  </select>
+  
+  <insert id="insert" parameterType="com.crane.po.model.User" >
+   	<selectKey keyProperty="userId" resultType="int" order="AFTER">
+      	SELECT LAST_INSERT_ID()
+    </selectKey>
+    <![CDATA[
+		    insert into crane_user (email, user_name, password, user_icon, user_bg,register_time, last_login_time)
+		    values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+		      #{password,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, #{userBg,jdbcType=VARCHAR}, 
+		      #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
+    ]]>
+  </insert>
+  
+  <update id="update" parameterType="com.crane.po.model.User" >
+    update crane_user
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="userBg != null" >
+        user_bg = #{userBg,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="characters != null" >
+        characters = #{characters,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="work != null" >
+        work = #{work,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activationCode != null" >
+        activation_code = #{activationCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="delete">
+       delete from crane_user where user_id = #{userId}
+   </delete>
+  
+</mapper>

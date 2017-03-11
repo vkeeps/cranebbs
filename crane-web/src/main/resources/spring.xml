@@ -17,7 +17,7 @@
      http://www.springframework.org/schema/aop 
      http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
      http://www.springframework.org/schema/task 
-	 http://www.springframework.org/schema/task/spring-task-4.2.xsd">
+	 http://www.springframework.org/schema/task/spring-task-4.0.xsd">
      
      <!-- 启用注解 -->
 	<context:annotation-config />
@@ -34,7 +34,7 @@
 		<property name="properties" ref="applicationProperties" />
 	</bean>
 	
-	<!-- 应用属性文件读入 -->
+	<!-- 应用属性文件即配置文件的读入 -->
 	<bean id="applicationProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="ignoreResourceNotFound" value="true" />
