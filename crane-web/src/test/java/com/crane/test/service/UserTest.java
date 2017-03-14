@@ -26,7 +26,7 @@ public class UserTest extends AbstractTestNGSpringContextTests {
 	@Resource
 	private UserService userService;
 	
-	@Test
+	/*@Test
 	public void testRegister(){
 		User user = new User();
 		user.setUserName("dengyawen");
@@ -36,6 +36,14 @@ public class UserTest extends AbstractTestNGSpringContextTests {
 			this.userService.restister(user);
 			logger.info("用户注册成功");
 		} catch (BusinessException e) {
+			logger.error(e.getMessage());
+		}
+	}*/
+	@Test
+	public void testEmail(){
+		try{
+			this.userService.sendCheckCode("409716474@qq.com");
+		}catch(BusinessException e){
 			logger.error(e.getMessage());
 		}
 	}

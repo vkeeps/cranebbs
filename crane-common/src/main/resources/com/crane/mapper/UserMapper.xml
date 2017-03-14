@@ -19,14 +19,38 @@
     <result column="activation_code" property="activationCode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="base_condition" >
-    <where >
-     	<if test="null!=userName and ''!=userName">
-     		AND user_name = #{userName}
-     	</if>
-     	<if test="null!=email and ''!=email">
-     		AND email = #{email}
-     	</if>
-    </where>
+    	<if test="null!=userName and ''!=userName" >
+			and user_name = #{userName}
+		</if>
+		<if test="null!=userId" >
+			and user_id = #{userId}
+		</if>
+		<if test="null!=email and ''!=email" >
+			and email = #{email}
+		</if>
+		<if test="null!=userNameFuzzy and ''!=userNameFuzzy" >
+            and user_name like '%${userNameFuzzy}%'
+        </if>
+        <if test="startDate!=null and startDate!=''">
+            <![CDATA[
+                and register_time >=str_to_date('${startDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+            ]]>
+        </if>
+       <if test="endDate!=null and endDate!=''">
+                <![CDATA[
+                    and register_time <=str_to_date('${endDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
+                ]]>
+        </if>
+        <if test="lastLoginStartDate!=null and lastLoginStartDate!=''">
+            <![CDATA[
+                and last_login_time >=str_to_date('${lastLoginStartDate} 00:00:00', '%Y-%m-%d %H:%i:%s')
+            ]]>
+        </if>
+       <if test="lastLoginEndDate!=null and lastLoginEndDate!=''">
+                <![CDATA[
+                    and last_login_time <=str_to_date('${lastLoginEndDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
+                ]]>
+        </if>
   </sql>
   
   <sql id="Base_Column_List" >
@@ -36,6 +60,10 @@
   
   <select id="selectList" resultMap="BaseResultMap">
   	select <include refid="Base_Column_List"/> from crane_user <include refid="base_condition" />
+  	order by register_time desc
+ 	<if test="page!=null">
+          limit #{page.start},#{page.end}
+    </if>
   </select>
   
   <select id="selectCount" resultType="java.lang.Integer">
@@ -97,5 +125,8 @@
   <delete id="delete">
        delete from crane_user where user_id = #{userId}
    </delete>
-  
+  <update id="changeUserMark">
+        update crane_user set mark = mark+#{changeMark}
+        where (mark+#{changeMark})>=0 and user_id= #{userId}
+   </update>
 </mapper>

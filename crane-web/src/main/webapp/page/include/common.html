@@ -1,7 +1,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="${absolutePath}/resource/js/common/jquery-1.12.0.min.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="${absolutePath}/resource/js/common/jquery-1.12.4.min.js"></script>
 <script src="${absolutePath}/resource/js/common/bootstrap.min.js"></script>
+<script src="${absolutePath}/resource/layui/layer/layer.js"></script>
 <script src="${absolutePath}/resource/js/common/crane.js"></script>
 <link rel="stylesheet" href="${absolutePath}/resource/css/common/bootstrap.min.css">
 <link rel="stylesheet" href="${absolutePath}/resource/css/common/public.css">
@@ -16,4 +17,12 @@
 	};
 	crane.absolutePath = "${absolutePath}";
 	crane.curUrl = window.location.href;
+</script>
+<script type="text/javascript">
+	/* layer.ready(function(){
+		  layer.msg('很高兴一开场就见到你');
+	});  */
+	var index = layer.load(0, {time: 200}); //又换了种风格，并且设定最长等待10秒 ,自动关闭
+	//手动关闭
+	//layer.close(index);  
 </script>

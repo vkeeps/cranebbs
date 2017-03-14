@@ -17,7 +17,7 @@ public class SendMailUtils {
 	 * 
 	 * @param title  邮件标题
 	 * @param content  邮件内容
-	 * @param emilAddress  收件人地址
+	 * @param toEmilAddress  收件人地址
 	 * @throws Exception
 	 */
 	public static void sendEmail(String sendEmail, String sendEmailPwd, String title, String content,

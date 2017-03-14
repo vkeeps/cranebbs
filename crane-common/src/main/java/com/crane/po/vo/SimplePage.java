@@ -38,6 +38,7 @@ public class SimplePage {
 
 	public void action() {
 		if (this.pageSize <= 0) {
+			//设置默认
 			this.pageSize = PageSize.SIZE20.getSize();
 		}
 		if (this.countTotal > 0) {
