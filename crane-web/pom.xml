@@ -44,10 +44,10 @@
 	        <optional>true</optional>
 	    </dependency>
 	    
-	    <dependency>
+	   <!-- 验证码 <dependency>
 	        <groupId>net.pusuo</groupId>
 	        <artifactId>patchca</artifactId>
 	        <version>0.5.0</version>
-	    </dependency>
+	    </dependency> -->
     </dependencies>
 </project>

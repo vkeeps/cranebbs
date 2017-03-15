@@ -49,7 +49,7 @@
 <script>
     $(function(){
     	crane.menus = [crane.absolutePath+"/","#","spitslot","exam","knowledge","bbs","ask","blog"];
-		crane.ignoreMenus = ["login","register"];
+		crane.ignoreMenus = ["login","regist"];
 	     for(var i=0,_len=crane.ignoreMenus.length,item;i<_len,item=crane.ignoreMenus[i];i++){
 		 	if(crane.curUrl.indexOf(item)!=-1){
 		     	 return;
@@ -68,16 +68,18 @@
 	     	    break;
 	         }
 	     };
-        var li_width = $(".banner-menu ul li.active").outerWidth();
-        var li_left = $(".banner-menu ul li.active").position().left;
-        $(".banner-menu .banner-menu-line").css({width:li_width,left:li_left});
-        $(".banner-menu ul li").hover(function(){
-            var li_width = $(this).outerWidth();
-            var li_left = $(this).position().left;
-            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},200);
-        },function(){
-            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},300);
-        });
+	    if($(".banner-menu ul li").hasClass("active")){
+	    	var li_width = $(".banner-menu ul li.active").outerWidth();
+	    	var li_left = $(".banner-menu ul li.active").position().left;
+	    	$(".banner-menu .banner-menu-line").css({width:li_width,left:li_left});
+	        $(".banner-menu ul li").hover(function(){
+	            var li_width = $(this).outerWidth();
+	            var li_left = $(this).position().left;
+	            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},200);
+	        },function(){
+	            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},300);
+	        });
+		}
     });
 </script>
 <script src="${absolutePath}/resource/js/common/particle.js" count="200" zindex="-2" opacity="0.8" color="66,135,193" type="text/javascript"></script>

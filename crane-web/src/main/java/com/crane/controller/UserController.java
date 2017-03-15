@@ -8,12 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.crane.exception.BusinessException;
 import com.crane.po.model.User;
 import com.crane.po.vo.AjaxResponse;
 import com.crane.service.UserService;
+import com.crane.utils.Constants;
+import com.crane.utils.Vcode.Captcha;
+import com.crane.utils.Vcode.GifCaptcha;
 
 /**
 * @author  Crane:
@@ -57,4 +62,25 @@ public class UserController extends BaseController {
 		return null;
 	}
 	
+	
+	@RequestMapping(value="checkCode",method=RequestMethod.GET)
+	public void getGifCode(HttpServletResponse response,HttpServletRequest request, HttpSession session){
+		try{
+			response.setHeader("Pragma", "No-cache");  
+	        response.setHeader("Cache-Control", "no-cache");  
+	        response.setDateHeader("Expires", 0);  
+	        response.setContentType("image/gif");  
+	        /**
+	         * gif格式动画验证码
+	         * 宽，高，位数。
+	         */
+	        Captcha captcha = new GifCaptcha(155,50,5);
+	        //输出
+	        captcha.out(response.getOutputStream());
+	        //存入Session
+	        session.setAttribute(Constants.CHECK_CODE_KEY,captcha.text().toLowerCase());  
+		}catch(Exception e){
+			logger.error("生成验证码失败");
+		}
+	}
 }

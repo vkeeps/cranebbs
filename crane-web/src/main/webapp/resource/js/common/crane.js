@@ -62,42 +62,90 @@ $.extend(crane, {
     		    /*var d = this.tipMsg({
     			type : "loading", content : "加载中......"
     		    });*/
+    			var index = layer.load();
     		}
     		var that = this;
     		$.ajax({
     		    async : async, cache : false, type : 'POST', dataType : "json", data : data, url : url,
     		    // 请求的action路径
     		    success : function(response) {
-    			if (showLoad) {
-    			    d.remove();
-    			}
-    			if (response.responseCode.code == crane.resultCode.LOGINTIMEOUT) { // 超时
-    			    var url = crane.curUrl;
-    			    that.goLogin();
-    			} else if (response.responseCode.code == crane.resultCode.SUCCESS) { // 请求成功
-    			    fun(response);
-    			} else if(response.responseCode.code == crane.resultCode.MOREMAXLOGINCOUNT){
-    				$("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
-    				fun(response);
-    			}else if (response.responseCode.code == crane.resultCode.NOPERMISSION) { // 没有权限
-    			    that.tipMsg({
-    			    	type : "error", content : response.errorMsg, timeout : 3000
-    			    });
-    			} else if (response.responseCode.code == crane.resultCode.CODEERROR) { // 验证码错误
-    			    that.tipMsg({
-    			    	type : "error", content : response.errorMsg, timeout : 3000
-    			    });
-    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
-    			} else { // 错误
-    			    that.tipMsg({
-    			    	type : "error", content : response.errorMsg, timeout : 3000
-    			    });
-    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
-    			}
+	    			if (showLoad) {
+	    			    layer.close(index);
+	    			}
+	    			if (response.responseCode.code == crane.resultCode.LOGINTIMEOUT) { // 超时
+	    			    var url = crane.curUrl;
+	    			    that.goLogin();
+	    			} else if (response.responseCode.code == crane.resultCode.SUCCESS) { // 请求成功
+	    			    fun(response);
+	    			} else if(response.responseCode.code == crane.resultCode.MOREMAXLOGINCOUNT){
+	    				$("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
+	    				fun(response);
+	    			}else if (response.responseCode.code == crane.resultCode.NOPERMISSION) { // 没有权限
+	    			    /*that.tipMsg({
+	    			    	type : "error", content : response.errorMsg, timeout : 3000
+	    			    });*/
+	    				layer.msg(response.errorMsg, {
+						  icon: 2,
+						  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+	    			} else if (response.responseCode.code == crane.resultCode.CODEERROR) { // 验证码错误
+	    				layer.msg(response.errorMsg, {
+	  					  icon: 2,
+	  					  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+	    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
+	    			} else { // 错误
+	    				layer.msg(response.errorMsg, {
+	  					  icon: 2,
+	  					  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+	    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
+	    			}
     		    }
     		});
         },
-        
+        /**
+         * 初始化表单
+         */
+        initForm : function(formObj) {
+	    	// 判断浏览器是否支持 placeholder
+	    	if (!placeholderSupport()) {
+	    	    formObj.find('[placeholder]').focus(function() {
+	    		var input = $(this);
+	    		if (input.val() == input.attr('placeholder')) {
+	    		    input.val('');
+	    		    input.removeClass('placeholder-style');
+	    		}
+	    		if (input.attr("realType") == "password") {
+	    		    input.prop("type", "password");
+	    		}
+	    	    }).blur(function() {
+	    		var input = $(this);
+	    		if (input.val() == '' || input.val() == input.attr('placeholder')) {
+	    		    if (input.prop("type") == "password") {
+	    			input.prop("type", "text");
+	    			input.attr("realType", "password")
+	    		    }
+	    		    input.addClass('placeholder-style');
+	    		    input.val(input.attr('placeholder'));
+	    		}
+	    	    }).blur();
+	    	}
+        },
+        /**
+         * 校验表单
+         */
+        checkForm : function(formObj) {
+        	var inputs = formObj.find("input[checkData]");
+        	var resutl = true;
+        	return inputs;
+        },
+        /**
+         * 提示框，重写layer
+         */
+        /*tipMsg:function(){
+        	
+        },*/
         // 获取浏览器版本
         getBrowserType : function() {
         	var browser = navigator.userAgent.indexOf("MSIE") > 0 ? 'IE' : 'others';
