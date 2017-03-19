@@ -1,5 +1,6 @@
 package com.crane.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.crane.exception.BusinessException;
+import com.crane.po.enums.ResponseCode;
 import com.crane.po.model.User;
 import com.crane.po.vo.AjaxResponse;
 import com.crane.service.UserService;
@@ -31,6 +32,7 @@ public class UserController extends BaseController {
 	
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	@Resource
 	private UserService userService;
 	
 	/*@RequestMapping(value="login")
@@ -52,6 +54,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "regist.do")
 	public AjaxResponse<Object> registerDo(HttpSession session, User user, String checkCode){
+		AjaxResponse<Object> result = new AjaxResponse<Object>();
 		return null;
 	}
 	
@@ -62,7 +65,33 @@ public class UserController extends BaseController {
 		return null;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="checkUserName.do")
+	public AjaxResponse<Object> checkUserName(HttpSession session,HttpServletResponse response,String userName){
+		AjaxResponse<Object> result  = new AjaxResponse<Object>();
+		result.setResponseCode(ResponseCode.SUCCESS);
+		try{
+			User user = userService.findUserByUserName(userName);
+			if(null!=user){
+				result.setErrorMsg("用户已存在");
+				result.setResponseCode(ResponseCode.BUSINESSERROR);
+				return result;
+			}else{
+				return result;
+			}
+		}catch (Exception e) {
+			result.setErrorMsg(ResponseCode.SERVERERROR.getDesc());
+			result.setResponseCode(ResponseCode.SERVERERROR);
+		}
+		return result;
+	}
 	
+	/**
+	 * gif验证码
+	 * @param response
+	 * @param request
+	 * @param session
+	 */
 	@RequestMapping(value="checkCode",method=RequestMethod.GET)
 	public void getGifCode(HttpServletResponse response,HttpServletRequest request, HttpSession session){
 		try{

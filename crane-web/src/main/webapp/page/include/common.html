@@ -3,10 +3,11 @@
 <script src="${absolutePath}/resource/js/common/jquery-1.12.4.min.js"></script>
 <script src="${absolutePath}/resource/js/common/bootstrap.min.js"></script>
 <script src="${absolutePath}/resource/layui/layer/layer.js"></script>
-<script src="${absolutePath}/resource/js/common/crane.js"></script>
 <link rel="stylesheet" href="${absolutePath}/resource/css/common/bootstrap.min.css">
+<link rel="stylesheet" href="${absolutePath}/resource/font-awesome-4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${absolutePath}/resource/css/common/public.css">
 <script type="text/javascript">
+	//拓展自定义函数
 	var crane = {};
 	crane.resultCode = {
 		"SUCCESS":200,
@@ -18,11 +19,12 @@
 	crane.absolutePath = "${absolutePath}";
 	crane.curUrl = window.location.href;
 </script>
+<script src="${absolutePath}/resource/js/common/crane.js"></script>
 <script type="text/javascript">
 	/* layer.ready(function(){
 		  layer.msg('很高兴一开场就见到你');
 	});  */
-	var index = layer.load(0, {time: 200}); //又换了种风格，并且设定最长等待10秒 ,自动关闭
+	var index = layer.load(0, {time: 0.2*1000}); //又换了种风格，并且设定最长等待10秒 ,自动关闭
 	//手动关闭
 	//layer.close(index);  
 </script>

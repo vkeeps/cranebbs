@@ -13,51 +13,54 @@
 		<div class="u-regist">
 			<form class="form-horizontal" id="registForm">
 				<div class="form-group">
-				  <label for="inputUserName" class="col-sm-2 control-label item-tit">帐&nbsp;号</label>
-				  <div class="col-sm-4">
-				    <input type="text" class="form-control" id="inputUserName" placeholder="请输入用户名">
-				  </div>
+					<label for="registUserName" class="col-sm-2 control-label item-tit">帐&nbsp;号</label>
+				  	<div class="col-sm-4">
+				    	<input type="text" class="form-control" placeholder="请输入用户名" name="userName" id="registUserName">
+					</div>
 				</div>
 				<div class="form-group">
-				  <label for="inputEmail" class="col-sm-2 control-label item-tit">邮&nbsp;箱</label>
-				  <div class="col-sm-4">
-				    <input type="email" class="form-control" id="inputEmail" placeholder="Email" checkData="{reg:'email',rq:true,msg:'请输入正确的邮箱'}">
-				  </div>
+				  	<label for="registEmail" class="col-sm-2 control-label item-tit">邮&nbsp;箱</label>
+				  	<div class="col-sm-4">
+					  	<div class="input-group">
+					    	<input type="email" class="form-control" id="registEmail" name="email" placeholder="Email" checkData="{reg:'email',rq:true,msg:'请输入正确的邮箱'}" aria-decribedby="basic-addOnEmail">
+					 		<span class="input-group-addon" id="basic-addOnEmail">@example.com</span>
+					 	</div>
+				 	</div>
 				</div>
 				<div class="form-group">
-				  <label for="inputPassword" class="col-sm-2 control-label item-tit">密&nbsp;码</label>
-				  <div class="col-sm-4">
-				    <input type="password" class="form-control" id="inputPassword" placeholder="请输入6~20位的密码" checkData="{min:6,max:16,reg:'common',rq:true,msg:'密码由字母+数字组成'}">
-				  </div>
+					 <label for="registPassword" class="col-sm-2 control-label item-tit">密&nbsp;码</label>
+					 <div class="col-sm-4">
+					   <input type="password" class="form-control" id="registPassword" name="password" placeholder="请输入6~20位的密码" checkData="{min:6,max:16,reg:'common',rq:true,msg:'密码由字母+数字组成'}">
+					 </div>
 				</div>
 				<div class="form-group">
-				  <label for="inputPassword2" class="col-sm-2 control-label item-tit">确&nbsp;认&nbsp;密&nbsp;码</label>
-				  <div class="col-sm-4">
-				    <input type="password" class="form-control" id="inputPassword2" placeholder="确认密码" checkData="{rq:true,msg:'请再次输入密码'}">
-				  </div>
+					<label for="registPassword2" class="col-sm-2 control-label item-tit">确&nbsp;认&nbsp;密&nbsp;码</label>
+					<div class="col-sm-4">
+					  <input type="password" class="form-control" id="registPassword2" name="rePassword" placeholder="确认密码" checkData="{rq:true,msg:'请再次输入密码'}">
+					</div>
 				</div>
 				<div class="form-group">
-				  <label for="inputCheckCode" class="col-sm-2 control-label item-tit">验&nbsp;证&nbsp;码</label>
-				  <div class="col-sm-2">
-				    <input type="text" class="form-control" id="inputCheckCode" placeholder="请输入验证码" checkData="{rq:true}">
-				  </div>
-				  <div class="col-sm-2 checkCode">
-				  	<a href="javascript:void(0)" id="refreshCheckCode">
-				  		<img src="checkCode">
-				  	</a>
-				  </div>
+					<label for="registCheckCode" class="col-sm-2 control-label item-tit">验&nbsp;证&nbsp;码</label>
+					<div class="col-sm-2">
+					  <input type="text" class="form-control" id="registCheckCode" name="checkCode" placeholder="请输入验证码" checkData="{rq:true}">
+					</div>
+					<div class="col-sm-2 checkCode">
+						<a href="javascript:void(0)" id="refreshCheckCode">
+							<img src="checkCode">
+						</a>
+					</div>
 				</div>
 				<div class="form-group">
-				  <div class="col-sm-offset-2 col-sm-5">
-				    <div class="checkbox">
-				      <label style="font-size: 15px;"><input type="checkbox" id="agree">同意修仙吧协议</label>
-				    </div>
-				  </div>
+					<div class="col-sm-offset-2 col-sm-5">
+					  <div class="checkbox">
+					    <label style="font-size: 15px;"><input type="checkbox" id="agree">同意修仙吧协议</label>
+					  </div>
+					</div>
 				</div>
 				<div class="form-group">
-				  <div class="col-sm-offset-2 col-sm-4">
-				    <a href="javascript:void(0)" class="btn btn-primary regist-btn">加入我们</a>
-				  </div>
+					<div class="col-sm-offset-2 col-sm-4">
+					  <a href="javascript:void(0)" class="btn btn-primary regist-btn">加入我们</a>
+					</div>
 				</div>
 			</form>
 		</div>

@@ -39,13 +39,18 @@ public class UserTest extends AbstractTestNGSpringContextTests {
 			logger.error(e.getMessage());
 		}
 	}*/
-	@Test
+	/*@Test
 	public void testEmail(){
 		try{
 			this.userService.sendCheckCode("409716474@qq.com");
 		}catch(BusinessException e){
 			logger.error(e.getMessage());
 		}
+	}*/
+	@Test
+	public void testUsername(){
+		User user = this.userService.findUserByUserName("409716434");
+		logger.info(user.getUserName());
 	}
 
 }

@@ -45,5 +45,5 @@ body{margin: 0px auto;padding: 0px;}
 .banner-menu ul li a:hover,.banner-menu ul li.active a{color:#458FCE}
 .banner-menu .banner-menu-line{height:3px;background:#336a9a;position:absolute;top:46px;}
 
-
+/*登录模态框*/
 .modal .modal-dialog .login-modal{margin-top:25%;}

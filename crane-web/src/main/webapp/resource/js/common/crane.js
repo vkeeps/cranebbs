@@ -1,6 +1,6 @@
 $.extend(crane, {
     regs : function() {//验证信息
-    	var regs = {
+	var regs = {
     	    all : {
     	    	reg : /^[\w\u4e00-\u9fa5]+$/, desc : "中文，字母,数字或下划线！"
     	    }, common : {
@@ -46,9 +46,10 @@ $.extend(crane, {
     	    }, decimal : {
     	    	reg : /^-?[0-9]+\.[0-9]+$/, desc : "小数"
     	    }
-    	}
+		}
     		return regs;
-        },
+    },
+       
         /**
          * 自定义ajax请求  crane 二〇一七年三月三日 21:41:39
          */
@@ -139,6 +140,41 @@ $.extend(crane, {
         	var inputs = formObj.find("input[checkData]");
         	var resutl = true;
         	return inputs;
+        },
+        /**
+         * 设置表单加载提示
+         * 由于使用了栅格化，需要获取其父类div,这里的obj是input元素的父类栅格元素
+         */
+        setLoading : function(obj) {
+    		if (obj.next().length == 0) {
+    		    obj.after($("<div class='regist-loading'><i class='fa fa-spinner fa-pulse'></i></div>"));
+    		}
+        },
+        /**
+         * 设置表单正确提示
+         * 由于使用了栅格化，需要获取其父类div,这里的obj是input元素的父类栅格元素
+         */
+        setCurrent : function(obj) {
+    		if (obj.next().length == 0) {
+    		    obj.after($("<div class='regist-check-result'><i class='fa fa-check-circle'></i></div>"));
+    		}else{
+    			obj.next().remove();
+    			obj.after($("<div class='regist-check-result'><i class='fa fa-check-circle'></i></div>"));
+    		}
+        },
+        /**
+         * 设置表单错误提示
+         * 由于使用了栅格化，需要获取其父类div,这里的obj是input元素的父类栅格元素
+         */
+        setError : function(obj, msg) {
+        	
+    		if (obj.next().length == 0) {
+    		    obj.after($("<div class='regist-check-result'><i class='fa fa-close'></i><span>"+msg+"</span></div>"));
+    		}else{
+    			obj.next().remove();
+    			obj.after($("<div class='regist-check-result'><i class='fa fa-close'></i><span>"+msg+"</span></div>"));
+    		}
+    		//obj.children().focus();
         },
         /**
          * 提示框，重写layer

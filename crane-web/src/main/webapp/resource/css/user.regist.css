@@ -1,3 +1,8 @@
 .u-regist{margin-top:5px;padding:15px;}
 .u-regist .item-tit{font-size: 15px;color:rgb(84, 84, 84)}
 .u-regist .form-group .checkCode a img{width:160px;height:52px;}
+.u-regist .regist-loading{font-size:20px;padding:2px;color:#458FCE;float:left;display: inline-block;}
+.u-regist .regist-check-result{font-size:20px;;padding-top:7px;float:left;display: inline-block;}
+.u-regist .regist-check-result .fa-check-circle,.u-regist .regist-check-result .fa-check{color:#07962b;float:left;}
+.u-regist .regist-check-result .fa-close{color:#b50d0d;float:left;}
+.u-regist .regist-check-result span{font-size:15px;color:#b50d0d;margin-left:3px;float:left;}

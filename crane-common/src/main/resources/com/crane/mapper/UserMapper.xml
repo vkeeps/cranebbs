@@ -19,7 +19,8 @@
     <result column="activation_code" property="activationCode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="base_condition" >
-    	<if test="null!=userName and ''!=userName" >
+    <where>
+      	<if test="null!=userName and ''!=userName" >
 			and user_name = #{userName}
 		</if>
 		<if test="null!=userId" >
@@ -51,30 +52,31 @@
                     and last_login_time <=str_to_date('${lastLoginEndDate} 23:59:59', '%Y-%m-%d %H:%i:%s')
                 ]]>
         </if>
+    </where>
   </sql>
-  
+ 
   <sql id="Base_Column_List" >
-    user_id, email, user_name, password, user_icon, user_bg, birthday, sex, characters, 
-    mark, address, work, register_time, last_login_time, activation_code
+    user_id, email, user_name, password, user_icon, user_bg, birthday, sex, characters, mark, 
+    address, work, register_time, last_login_time, activation_code
   </sql>
-  
-  <select id="selectList" resultMap="BaseResultMap">
-  	select <include refid="Base_Column_List"/> from crane_user <include refid="base_condition" />
-  	order by register_time desc
+ 
+ <select id="selectList" resultMap ="BaseResultMap" >
+ 	select <include refid="Base_Column_List"/> from crane_user  <include refid="base_condition"/>
+ 	order by register_time desc
  	<if test="page!=null">
           limit #{page.start},#{page.end}
     </if>
-  </select>
-  
-  <select id="selectCount" resultType="java.lang.Integer">
-  	select count(1) from crane_user <include refid="base_condition" />
-  </select>
-  
+ </select>
+ 
+ <select id="selectCount" resultType="java.lang.Integer">
+ 	select  count(1) from crane_user  <include refid="base_condition"/>
+ </select>
+ 
   <insert id="insert" parameterType="com.crane.po.model.User" >
-   	<selectKey keyProperty="userId" resultType="int" order="AFTER">
+  	<selectKey keyProperty="userId" resultType="int" order="AFTER">
       	SELECT LAST_INSERT_ID()
     </selectKey>
-    <![CDATA[
+      <![CDATA[
 		    insert into crane_user (email, user_name, password, user_icon, user_bg,register_time, last_login_time)
 		    values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
 		      #{password,jdbcType=VARCHAR}, #{userIcon,jdbcType=VARCHAR}, #{userBg,jdbcType=VARCHAR}, 
@@ -122,11 +124,12 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   
-  <delete id="delete">
-       delete from crane_user where user_id = #{userId}
-   </delete>
-  <update id="changeUserMark">
+   <update id="changeUserMark">
         update crane_user set mark = mark+#{changeMark}
         where (mark+#{changeMark})>=0 and user_id= #{userId}
    </update>
+  
+   <delete id="delete">
+       delete from crane_user where user_id = #{userId}
+   </delete>
 </mapper>

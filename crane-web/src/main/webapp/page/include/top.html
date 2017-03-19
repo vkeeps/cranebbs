@@ -10,7 +10,7 @@
             <div class="col-sm-3 col-sm-offset-7 header-user-info">
                 <i class="icon-search" id="search-btn"></i>
                 <div class="no-login">
-                    <a href="javascript:void()" data-toggle="modal" data-target="#myModal">登录</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal" data-backdrop="false">登录</a>
                     <span class="line">|</span>
                     <a href="${absolutePath}/regist">加入我们</a>
                 </div>
@@ -79,25 +79,49 @@
 	        },function(){
 	            $(".banner-menu .banner-menu-line").stop().animate({width:li_width,left:li_left},300);
 	        });
-		}
+		};
+		/* $("#login").on("click",function(){
+			$("#loginModal").modal({
+				backdrop:false
+			});
+		}); */
+		$("#loginBtn").click(function(){
+			$(this).button('loading').delay(1000).queue(function(){
+			});
+		});
     });
 </script>
 <script src="${absolutePath}/resource/js/common/particle.js" count="200" zindex="-2" opacity="0.8" color="66,135,193" type="text/javascript"></script>
 
 <!-- 登录Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content login-modal">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        	<i class='fa fa-close'></i>
+        </button>
+        <h4 class="modal-title" id="loginModalLabel">欢迎来到修仙社区,请登录</h4>
       </div>
       <div class="modal-body">
-        ...
+      	<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="loginUserName" class="col-sm-3 control-label fa-label"><i class="fa fa-user fa-medium"></i></label>
+		    	<div class="col-sm-7">
+		    		<input type="text" class="form-control" id="loginUserName" name="account" placeholder="Username">
+		    	</div>
+			</div>
+			<div class="form-group">
+				<label for="loginPassword" class="col-sm-3 control-label fa-label"><i class="fa fa-lock fa-medium"></i></label>
+		    	<div class="col-sm-7">
+		    		<input type="password" class="form-control" id="loginPassword" placeholder="Password">
+		    	</div>
+			</div>
+		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary" id="loginBtn">点我登录</button>
       </div>
     </div>
   </div>
