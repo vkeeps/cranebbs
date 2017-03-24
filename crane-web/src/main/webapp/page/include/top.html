@@ -9,11 +9,17 @@
             </div>
             <div class="col-sm-3 col-sm-offset-7 header-user-info">
                 <i class="icon-search" id="search-btn"></i>
+				<#if Session["session_user_key"]??>
+				<div>欢迎回来，<img class="img-circle" src="${absolutePath}/upload/${session_user_key.userIcon}" style="width: 30px;height:30px;">
+				<span><a style="color: yellow;">${session_user_key.userName}</a></span>
+				</div>
+				<#else>
                 <div class="no-login">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal" data-backdrop="false">登录</a>
                     <span class="line">|</span>
                     <a href="${absolutePath}/regist">加入我们</a>
                 </div>
+                </#if>
             </div>
         </div>
     </div>
@@ -92,7 +98,7 @@
     });
 </script>
 <script src="${absolutePath}/resource/js/common/particle.js" count="200" zindex="-2" opacity="0.8" color="66,135,193" type="text/javascript"></script>
-
+<script src="${absolutePath}/resource/js/user.login.js"></script>
 <!-- 登录Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
   <div class="modal-dialog" role="document">
@@ -104,7 +110,7 @@
         <h4 class="modal-title" id="loginModalLabel">欢迎来到修仙社区,请登录</h4>
       </div>
       <div class="modal-body">
-      	<form class="form-horizontal" role="form">
+      	<form class="form-horizontal" role="form" id="loginForm">
 			<div class="form-group">
 				<label for="loginUserName" class="col-sm-3 control-label fa-label"><i class="fa fa-user fa-medium"></i></label>
 		    	<div class="col-sm-7">
@@ -117,11 +123,19 @@
 		    		<input type="password" class="form-control" id="loginPassword" placeholder="Password">
 		    	</div>
 			</div>
+			<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-3">
+			      <div class="checkbox">
+			        <label><input type="checkbox" name="rememberMe" value="1"> Remember me</label>
+			      </div>
+			    </div>
+			</div>
 		</form>
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         <button type="button" class="btn btn-primary" id="loginBtn">点我登录</button>
+        <a href="">忘记密码？</a>
       </div>
     </div>
   </div>

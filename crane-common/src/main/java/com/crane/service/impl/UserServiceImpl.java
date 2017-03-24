@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	private ConfigInfo configInfo;
 
 	@Override
-	public void restister(User user) throws BusinessException {
+	public void regist(User user) throws BusinessException {
 		/**
 		 * 校验邮箱，用户名，密码是否合法
 		 */

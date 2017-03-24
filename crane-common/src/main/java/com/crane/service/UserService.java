@@ -21,7 +21,7 @@ public interface UserService {
 	 * @throws BusinessException
 	 * @since JDK 1.7
 	 */
-	public void restister(User user) throws BusinessException;
+	public void regist(User user) throws BusinessException;
 
 	/**
 	 * 

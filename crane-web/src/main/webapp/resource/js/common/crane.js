@@ -58,6 +58,7 @@ $.extend(crane, {
     		var url = config.url;
     		var data = config.data || "";
     		var fun = config.fun;
+    		var $obj = config.obj==null?null:config.obj;
     		var showLoad = config.showLoad == null ? true : config.showLoad;
     		if (showLoad) {
     		    /*var d = this.tipMsg({
@@ -96,10 +97,15 @@ $.extend(crane, {
 						});
 	    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
 	    			} else { // 错误
-	    				layer.msg(response.errorMsg, {
-	  					  icon: 2,
-	  					  time: 2000 //2秒关闭（如果不配置，默认是3秒）
-						});
+	    				
+	    				if($obj!=null){
+	    					that.setError($obj,response.errorMsg);
+	    				}else{
+	    					layer.msg(response.errorMsg, {
+	  	  					  icon: 2,
+	  	  					  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+	  						});
+	    				}
 	    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
 	    			}
     		    }
@@ -134,12 +140,13 @@ $.extend(crane, {
 	    	}
         },
         /**
-         * 校验表单
+         * 校验表单，需要自定义加入checkData标签
+         * formObj,jq对象
          */
         checkForm : function(formObj) {
-        	var inputs = formObj.find("input[checkData]");
-        	var resutl = true;
-        	return inputs;
+        	var $inputs = formObj.find("input[checkData]");
+        	var result = true;
+        	return result;
         },
         /**
          * 设置表单加载提示
@@ -157,9 +164,11 @@ $.extend(crane, {
         setCurrent : function(obj) {
     		if (obj.next().length == 0) {
     		    obj.after($("<div class='regist-check-result'><i class='fa fa-check-circle'></i></div>"));
+    		    obj.removeClass("has-error").addClass("has-success");
     		}else{
     			obj.next().remove();
     			obj.after($("<div class='regist-check-result'><i class='fa fa-check-circle'></i></div>"));
+    			obj.removeClass("has-error").addClass("has-success");
     		}
         },
         /**
@@ -167,12 +176,13 @@ $.extend(crane, {
          * 由于使用了栅格化，需要获取其父类div,这里的obj是input元素的父类栅格元素
          */
         setError : function(obj, msg) {
-        	
     		if (obj.next().length == 0) {
     		    obj.after($("<div class='regist-check-result'><i class='fa fa-close'></i><span>"+msg+"</span></div>"));
+    		    obj.removeClass("has-success").addClass("has-error");
     		}else{
     			obj.next().remove();
     			obj.after($("<div class='regist-check-result'><i class='fa fa-close'></i><span>"+msg+"</span></div>"));
+    			obj.removeClass("has-success").addClass("has-error");
     		}
     		//obj.children().focus();
         },
