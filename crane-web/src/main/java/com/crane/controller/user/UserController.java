@@ -1,4 +1,4 @@
-package com.crane.controller;
+package com.crane.controller.user;
 
 import java.net.URLEncoder;
 
@@ -108,6 +108,7 @@ public class UserController extends BaseController {
 				return result;
 			}
 			User user = userService.login(account, password);
+			result.setResponseCode(ResponseCode.SUCCESS);
 			SessionUser sessionUser = new SessionUser();
 			sessionUser.setUserId(user.getUserId());
 			sessionUser.setUserIcon(user.getUserIcon());

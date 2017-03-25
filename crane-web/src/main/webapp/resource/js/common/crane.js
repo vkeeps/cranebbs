@@ -1,4 +1,4 @@
-$.extend(crane, {
+$.extend(crane,{
     regs : function() {//验证信息
 	var regs = {
     	    all : {
@@ -79,7 +79,7 @@ $.extend(crane, {
 	    			    that.goLogin();
 	    			} else if (response.responseCode.code == crane.resultCode.SUCCESS) { // 请求成功
 	    			    fun(response);
-	    			} else if(response.responseCode.code == crane.resultCode.MOREMAXLOGINCOUNT){
+	    			} else if(response.responseCode.code == crane.resultCode.MOREMAXLOGINCOUNT){//登录错误超过3次
 	    				$("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
 	    				fun(response);
 	    			}else if (response.responseCode.code == crane.resultCode.NOPERMISSION) { // 没有权限
@@ -97,7 +97,6 @@ $.extend(crane, {
 						});
 	    			    $("#refreshCheckCode").find("img").attr("src", "checkCode.do?" + new Date().getTime());
 	    			} else { // 错误
-	    				
 	    				if($obj!=null){
 	    					that.setError($obj,response.errorMsg);
 	    				}else{

@@ -8,16 +8,27 @@
 <link rel="stylesheet" href="${absolutePath}/resource/css/common/public.css">
 <script type="text/javascript">
 	//拓展自定义函数
-	var crane = {};
-	crane.resultCode = {
-		"SUCCESS":200,
-		"LOGINTIMEOUT":401,
-		"NOPERMISSION":403,
-		"CODEERROR":425,
-		"MOREMAXLOGINCOUNT":405
-	};
-	crane.absolutePath = "${absolutePath}";
-	crane.curUrl = window.location.href;
+	 var crane = {};
+    crane.resultCode = {
+        "SUCCESS": 200,
+        "LOGINTIMEOUT": 401,
+        "NOPERMISSION": 403,
+        "CODEERROR": 425,
+        "MOREMAXLOGINCOUNT": 405
+    };
+    crane.user = {
+        userId: "<#if Session["session_user_key"]??>${session_user_key.userId}</#if>",
+        userName: "<#if Session["session_user_key"]??>${session_user_key.userName}</#if>",
+        userIcon: "<#if Session["session_user_key"]??>${session_user_key.userIcon}</#if>"
+    }
+    crane.sourceFrom = {
+        "P": "crane.com",
+        "A": "Android",
+        "I": "iPhone"
+    }
+
+    crane.absolutePath = "${absolutePath}";
+    crane.curUrl = window.location.href;
 </script>
 <script src="${absolutePath}/resource/js/common/crane.js"></script>
 <script type="text/javascript">

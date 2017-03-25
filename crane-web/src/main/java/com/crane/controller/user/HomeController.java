@@ -1,4 +1,4 @@
-package com.crane.controller;
+package com.crane.controller.user;
 
 import javax.servlet.http.HttpSession;
 
