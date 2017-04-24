@@ -15,8 +15,11 @@ public class SimplePage {
 	private int countTotal;//全部总数
 	private int pageSize;//每页的个数
 	private int pageTotal;//每页的总数
-	private int start;//每页起始个数
-	private int end;//每页结束个数
+	private int start;//每页开始的第一个的序号(对应数据库，例如第一页第一条记录的序号是0)
+	private int end;//每页结束的最后一个的序号(对应数据库，例如第一页第20条记录的序号是19
+					//但是,数据库查询要取到20记录是需要是查到序号为limit 0,20，不取序号为20的记录，取前面的0-19
+					//所以20为转换过来的是对应第20条记录.因此，第二页的第一条记录要从20号查起,如果要再想查20条记录,
+					//那么，第二页最后一条对应的数据库序号就是20(第一条序号)+20(当页的需要的数量),也就是换成页面的第21条到第40条)
 
 	public SimplePage() {
 	};

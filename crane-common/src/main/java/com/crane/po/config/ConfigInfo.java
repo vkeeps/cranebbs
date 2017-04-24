@@ -25,6 +25,12 @@ public class ConfigInfo {
 	@Value("#{applicationProperties['crane.emial.findpwd']}")
 	private String findpwd;
 
+	@Value("#{applicationProperties['crane.image.domain']}")
+    private String imageDomain;
+
+    @Value("#{applicationProperties['crane.image.folder']}")
+    private String imageFolder;
+	
 	/*@Value("#{applicationProperties['crane.solr.server.url']}")
 	private String solrServerUrl;
 
@@ -54,6 +60,22 @@ public class ConfigInfo {
 
 	public void setFindpwd(String findpwd) {
 		this.findpwd = findpwd;
+	}
+
+	public String getImageDomain() {
+		return imageDomain;
+	}
+
+	public void setImageDomain(String imageDomain) {
+		this.imageDomain = imageDomain;
+	}
+
+	public String getImageFolder() {
+		return imageFolder;
+	}
+
+	public void setImageFolder(String imageFolder) {
+		this.imageFolder = imageFolder;
 	}
 
 	/*public String getSolrServerUrl() {
@@ -95,5 +117,6 @@ public class ConfigInfo {
 	public void setOpenSolr(boolean openSolr) {
 		this.openSolr = openSolr;
 	}*/
+	
 
 }

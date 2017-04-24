@@ -27,6 +27,7 @@ $(function(){
     });
 });
 function login(obj){
+	//还未做表单校验
 	crane.ajaxRequest({
 		async : true,url :crane.url.login,data:obj.serialize(),showLoad:true,fun:function(res){
 			if(res.responseCode.code==crane.resultCode.MOREMAXLOGINCOUNT){

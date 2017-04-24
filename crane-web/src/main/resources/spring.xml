@@ -44,6 +44,7 @@
 				<value>file:/webser/java_config/crane/web-config.properties</value>
 			</list>
 		</property>
+		<property name="fileEncoding" value="UTF-8"/>
 	</bean>
 	
 	<!-- 数据源配置，采用德鲁伊数据源 -->
@@ -98,4 +99,26 @@
 	
 	<task:annotation-driven />
 	
+	<!-- 2.5.2版本之前 -->
+	<!-- <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml"/>
+    </bean>  -->
+    <!-- 2.5.2版本之后 -->
+    <!-- 配置Ehcache缓存管理器,读取配置文件 -->
+   <!--  <bean id="ehCacheManagerFactoryBean" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="cacheManagerName" value="testManager"></property>
+        <property name="configLocation" value="classpath:ehcache.xml"></property>
+        <property name="shared" value="true"></property>
+    </bean> -->
+    <!-- 配置缓存管理器,获取cache -->
+     <!-- <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" >
+        <property name="cacheManager" ref="ehCacheManagerFactoryBean" />
+    </bean> -->
+    <!-- 2.5.2之后这样也行 -->
+    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="cacheManagerName" value="testManager" />
+        <property name="configLocation" value="classpath:ehcache.xml"/>
+       <!--  <property name="shared" value="true"/> -->
+    </bean> 
+    
 </beans>

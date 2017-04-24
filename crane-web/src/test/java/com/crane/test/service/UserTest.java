@@ -29,11 +29,11 @@ public class UserTest extends AbstractTestNGSpringContextTests {
 	/*@Test
 	public void testRegister(){
 		User user = new User();
-		user.setUserName("dengyawen");
-		user.setEmail("944702333@qq.com");
+		user.setUserName("crane");
+		user.setEmail("409716474@qq.com");
 		user.setPassword("36826637");
 		try {
-			this.userService.restister(user);
+			this.userService.regist(user);
 			logger.info("用户注册成功");
 		} catch (BusinessException e) {
 			logger.error(e.getMessage());
@@ -49,8 +49,25 @@ public class UserTest extends AbstractTestNGSpringContextTests {
 	}*/
 	@Test
 	public void testUsername(){
-		User user = this.userService.findUserByUserName("409716434");
+		User user = this.userService.findUserByUserName("crane");
 		logger.info(user.getUserName());
+		System.out.println("666");
 	}
 
+	/*@Test
+	public void testLogin(){
+		String account = "crane";
+		try{
+			String password = "36826637";
+			User user = userService.login(account, password);
+			if(null!=user){
+				System.out.println(666666);
+				logger.info(user.getUserName());
+				System.out.println(666666888);
+			}
+		}catch(BusinessException e){
+			logger.info(e.getMessage());
+			logger.error("登录失败:{}",account,e);
+		}
+	}*/
 }

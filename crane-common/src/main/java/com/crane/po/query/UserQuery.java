@@ -1,4 +1,7 @@
 package com.crane.po.query;
+
+import com.crane.po.enums.OrderByEnum;
+
 /**
 * @author  Crane:
 * @version 5.0
@@ -6,15 +9,23 @@ package com.crane.po.query;
 * 
 */
 public class UserQuery extends BaseQuery {
-
 	private String userName;
-	private String email;
-	private String userId;
-	private String userNameFuzzy;
-	private String startDate;
-	private String endDate;
-	private String lastLoginStartDate;
-	private String lastLoginEndDate;
+    private String email;
+    private String userId;
+    private String userNameFuzzy;
+    private String startDate;
+    private String endDate;
+    private String lastLoginStartDate;
+    private String lastLoginEndDate;
+    private OrderByEnum orderBy;
+
+	public OrderByEnum getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(OrderByEnum orderBy) {
+		this.orderBy = orderBy;
+	}
 
 	public String getUserName() {
 		return userName;

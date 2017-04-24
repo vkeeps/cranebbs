@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.crane.cache.BlackUserCache;
 import com.crane.exception.BusinessException;
 import com.crane.mapper.UserMapper;
 import com.crane.po.config.ConfigInfo;
+import com.crane.po.enums.OrderByEnum;
 import com.crane.po.enums.PageSize;
 import com.crane.po.enums.TextLengthEnum;
 import com.crane.po.model.User;
@@ -305,6 +308,18 @@ public class UserServiceImpl implements UserService {
 		this.userMapper.delete(query);
 		//加入黑名单缓存
 		BlackUserCache.AddUser(userId);
+	}
+	@Override
+	public List<User> findAllActiveUser() {
+		UserQuery query = new UserQuery();
+        query.setOrderBy(OrderByEnum.LAST_LOGIN_TIME_DESC);
+        //设置简单分页
+        SimplePage page = new SimplePage();
+        page.setStart(0);
+        page.setEnd(Constants.MAX_AT_COUNT);
+        //从第1条记录到1001条，共1001条
+        List<User> list = this.userMapper.selectList(query);
+        return list;
 	}
 
 }

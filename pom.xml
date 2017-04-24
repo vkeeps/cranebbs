@@ -40,7 +40,7 @@
 		</pluginManagement>
 	</build>
   
-   <repositories>
+   <!-- <repositories>
           <repository>
               <id>nexus</id>
               <name>local private nexus</name>
@@ -52,5 +52,11 @@
                   <enabled>false</enabled>
               </snapshots>
           </repository>
-   </repositories>
+   </repositories> -->
+   <repositories>
+        <repository>
+            <id>aliyun</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
 </project>

@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.crane.po.config.ConfigInfo;
 import com.crane.utils.ServerUtils;
 import com.crane.utils.SpringContextUtil;
 
@@ -26,5 +27,9 @@ public class CraneContextLoaderListener extends ContextLoaderListener {
 
 		InitTask initTask = new InitTask();
 		initTask.onApplicationEvent();*/
+		//设置图片服务相关配置
+        ConfigInfo configInfo = (ConfigInfo) ctx.getBean("configInfo");
+        ServerUtils.setImageDomain(configInfo.getImageDomain());
+        ServerUtils.setImageFolder(configInfo.getImageFolder());
 	}
 }

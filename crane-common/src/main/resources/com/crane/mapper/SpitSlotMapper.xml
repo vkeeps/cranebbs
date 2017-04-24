@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crane.mapper.SpitSlotMapper">
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+    <resultMap id="BaseResultMap" type="com.crane.po.model.SpitSlot">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_icon" property="userIcon" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="image_url_small" property="imageUrlSmall" jdbcType="VARCHAR"/>
+        <result column="music_url" property="musicUrl" jdbcType="VARCHAR"/>
+        <result column="comment_count" property="commentCount" jdbcType="INTEGER"/>
+        <result column="like_count" property="likeCount" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="source_from" property="sourceFrom" jdbcType="VARCHAR"/>
+        <collection column="id" property="commentList" ofType="com.crane.po.model.SpitSlotComment"
+                    select="com.crane.mapper.SpitSlotCommentMapper.selectListBySpitSlotId"/>
+    </resultMap>
+    <sql id="base_condition">
+        <where>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="id!=null">
+                and id = #{id}
+            </if>
+            <if test="userName!=null and ''!=userName">
+                and user_name like '%${userName}%'
+            </if>
+            <if test="null!=startTime and ''!=startTime">
+                <![CDATA[
+                and create_time >='${startTime} 00:00:00'
+             ]]>
+            </if>
+            <if test="null!=endTime and ''!=endTime">
+                <![CDATA[
+                and create_time <= '${endTime} 23:59:59'
+              ]]>
+            </if>
+        </where>
+    </sql>
+    <sql id="base_column_list">
+    id, user_id, user_icon, user_name, image_url, image_url_small, music_url, content,create_time,comment_count,like_count,source_from
+  </sql>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_column_list"/>
+        from crane_spit_slot
+        <include refid="base_condition"/>
+        order by create_time desc
+        <if test="null!=page">
+            limit #{page.start},#{page.end}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(1) from crane_spit_slot
+        <include refid="base_condition"/>
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from crane_spit_slot
+        <include refid="base_condition"/>
+    </delete>
+
+    <insert id="insert" parameterType="com.crane.po.model.SpitSlot">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+	    insert into crane_spit_slot (user_id, user_icon,user_name, image_url, image_url_small,music_url, create_time, content,source_from)
+	    values (#{userId,jdbcType=INTEGER}, #{userIcon,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, #{imageUrlSmall,jdbcType=VARCHAR}, 
+	    #{musicUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR},#{sourceFrom,jdbcType=VARCHAR})
+  	]]>
+    </insert>
+
+    <update id="updateSlotCommentCount">
+  	update crane_spit_slot set comment_count = (comment_count+#{count}) where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <update id="updateSlotLikeCount">
+  	update crane_spit_slot set like_count = (like_count+1) where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectActiveUser4SpitSlot" resultMap="BaseResultMap">
+  	select user_id,count(1) c,max(user_name) user_name ,max(user_icon) user_icon  
+  	from crane_spit_slot b  group by user_id order by c desc limit #{page.start},#{page.end}
+  </select>
+
+    <resultMap id="ResultMapNoComment" type="com.crane.po.model.SpitSlot">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_icon" property="userIcon" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="image_url_small" property="imageUrlSmall" jdbcType="VARCHAR"/>
+        <result column="music_url" property="musicUrl" jdbcType="VARCHAR"/>
+        <result column="comment_count" property="commentCount" jdbcType="INTEGER"/>
+        <result column="like_count" property="likeCount" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+	<!-- 无评论时 -->
+    <select id="selectListNoComment" resultMap="ResultMapNoComment">
+        select
+        <include refid="base_column_list"/>
+        from crane_spit_slot
+        <include refid="base_condition"/>
+        order by create_time desc
+        <if test="null!=page">
+            limit #{page.start},#{page.end}
+        </if>
+    </select>
+</mapper>

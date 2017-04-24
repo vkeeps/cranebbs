@@ -14,7 +14,7 @@ public class JettyServer {
 	static final String absloute_path = "E:\\workspace\\project3\\crane\\crane-web";
 	
 	public static void main(String[] args) throws Exception {
-		Server server = buildNormalServer(8091, "/");
+		Server server = buildNormalServer(8081, "/");
 		server.start();
 	}
 

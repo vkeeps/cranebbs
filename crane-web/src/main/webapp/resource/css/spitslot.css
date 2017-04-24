@@ -1,0 +1,62 @@
+@IMPORT url("spitslot.item.css");
+
+.send-spit{
+	padding:0px;
+}
+.send-spit .send-spit-input{
+	padding:0px;
+    border: 3px solid #4590CE;
+    border-right: none;
+    height:80px;
+}
+.send-spit .send-spit-input textarea{
+	width:100%;
+	height:100%;
+	padding: 5px;
+    border:none;
+    resize:none;
+    outline:none;
+}
+.send-spit .send-spit-btn{
+	height:80px;
+	border-radius:0px 8px 8px 0px;
+}
+.send-spit-op{
+	padding:5px;
+}
+.send-spit-op .op-at,.send-spit-op .op-emoji,.send-spit-op .op-div{
+	float: left;
+	display: inline-block;
+	width:23px;
+	height:23px;
+	margin-right:5px;
+	color:#337ab7;
+}
+.send-spit-op .op-div .op-img{
+	float: left;
+	display: inline-block;
+	width:23px;
+	height:23px;
+	margin-right:5px;
+}
+.send-spit-op .op-at:HOVER,.send-spit-op .op-emoji:HOVER,.send-spit-op .op-div .op-img:HOVER{
+	color:#ff5c18;
+	cursor: pointer;
+}
+/* .send-spit-op a{
+	display: inline-block;
+	margin-right:5px;
+	text-align: none;
+	position: fixed;
+	margin-left:3px;
+} */
+/* .send-spit-op a:HOVER {
+	color:#ff5c18;
+	cursor: pointer;
+} */
+/******重写webuploader样式*******/
+.webuploader-pick {
+    background: none;
+    padding: 0px;
+    border:none;
+}

@@ -1,6 +1,8 @@
 
 package com.crane.service;
 
+import java.util.List;
+
 import com.crane.exception.BusinessException;
 import com.crane.po.model.User;
 import com.crane.po.query.UserQuery;
@@ -173,6 +175,14 @@ public interface UserService {
 	 */
 	public void rewardMark(Integer userId, Integer mark, String message);
 
+	 /**
+     * 查询活跃用户
+     * findAllActiveUser:(这里用一句话描述这个方法的作用). <br/>
+     * @return
+     * @since JDK 1.7
+     */
+    public List<User> findAllActiveUser();
+    
 	/**
 	 * 
 	 * warnUser:(发送警告信息)

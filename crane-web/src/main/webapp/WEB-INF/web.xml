@@ -85,7 +85,7 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 	<!-- 相关错误页 -->
-	<error-page>
+	<!-- <error-page>
 		<error-code>403</error-code>
 		<location>/page/error/403.html</location>
 	</error-page>
@@ -100,6 +100,6 @@
 	<error-page>
 		<error-code>500</error-code>
 		<location>/page/error/500.html</location>
-	</error-page>
+	</error-page> -->
 
 </web-app>

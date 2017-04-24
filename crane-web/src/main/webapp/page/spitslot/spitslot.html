@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>修仙吧-吐槽</title>
+<#include "../include/common.html">
+<link rel="stylesheet" href="${absolutePath}/resource/webuploader/webuploader.css"/>
+<link rel="stylesheet" href="${absolutePath}/resource/css/spitslot.css?version=20170328"/>
+<script src="${absolutePath}/resource/webuploader/webuploader.min.js"></script>
+<script src="${absolutePath}/resource/js/spitslotitem.js?version=20170132"></script>
+</head>
+<body>
+<#include "../include/top.html">
+<div class="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="send-spit">
+					<div class="col-xs-10 send-spit-input">
+						<textarea id="spit-slot-area" placeholder="今天你吐槽了吗???"></textarea>
+					</div>
+					<div class="col-xs-2 btn btn-primary send-spit-btn">发表吐槽</div>
+				</div>
+				
+				<div class="col-xs-12 send-spit-op">
+					<i class="fa fa-at fa-2x op-at" title="@好友"></i>
+					<i class="fa fa-smile-o fa-2x op-emoji" title="插入表情"></i>
+					<!-- <a href="javascript:;" title="插入图片" class="" id="upload-image">
+						<i class="fa fa-image fa-2x op-img"></i>
+					</a> -->
+					<div title="插入图片" class="op-div" id="upload-image">
+						<i class="fa fa-image fa-2x op-img"></i>
+					</div>
+				</div>
+				<div id="image-con"></div>
+				<article class="spit-item">
+					<div class="col-xs-2 spit-item-user-icon"></div>
+					<div class="col-xs-10 spit-item-body">
+						<div class="spit-item-body-content"></div>
+						<div class="spit-item-body-info"></div>
+						<div class="like_comment"></div>
+						<div class="comment_form">
+							<textarea></textarea>
+							<div class="comment_form_op"></div>
+						</div>
+					</div>
+				</article>
+			</div>
+			<aside class="col-md-4">
+				<!--dom结构部分-->
+				<div id="uploader-demo">
+				    <!--用来存放item-->
+				    <div id="fileList" class="uploader-list"></div>
+				    <div id="filePicker">选择图片</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
+<script src="${absolutePath}/resource/js/spitslot.js?version=20170132"></script>
+<#include "../include/footer.html">
+</body>
+</html>

@@ -51,6 +51,8 @@ public class Constants {
 	 */
 	public final static String ABSOLUTEPATH = "absolutePath";
 	
+	public final static String IMAGEDOMAINPATH = "imageDomain";
+	
 	public final static int EXAM_MAX_TITLE = 50;
 
 	public final static String ERROR_404 = "/error404";
@@ -76,4 +78,34 @@ public class Constants {
 	 */
 	public static final int MAXTHUMBNAILCOUNT = 3;
 
+	/**
+	 * 最大的博客加载数目
+	 */
+	public final static Integer MAX_BLOG_CATEGORY_COUNT = 10;
+
+	/**
+	 * 任务信息
+	 */
+    public final static String TASK_MESSAGE = "task_message";
+
+    public final static String AT_ALL = "all";
+
+    public final static Integer SEND_USERID = 10001;
+
+    public final static Integer MAX_AT_COUNT = 1000;
+
+    //一点资讯默认class
+    public final static String DEFUALT_CLASS_NAME = "yidian-content";
+
+    public final static String OUTPUT_PAGE = "/pages/";
+
+    public final static String PAGE_COUNT_FILE = "pageTotal";
+
+    public final static String OUTPUT_DATA_LIST = "/list/";
+
+    public final static String OUTPUT_DATA_IMAGES = "/images/";
+
+    public final static String OUTPUT_DATA_resource = "/resource/";
+
+    public final static int SIZE_1_M = 1024 * 1024;
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crane.mapper.SpitSlotCommentMapper">
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <resultMap id="BaseResultMap" type="com.crane.po.model.SpitSlotComment">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="spit_slot_id" property="spitSlotId" jdbcType="INTEGER"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_icon" property="userIcon" jdbcType="VARCHAR"/>
+        <result column="source_from" property="sourceFrom" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="base_condition">
+        <where>
+            <if test="id!=null">
+                and id = #{id}
+            </if>
+            <if test="spitSlotId!=null">
+                and spit_slot_id = #{spitSlotId}
+            </if>
+            <if test="userName!=null and ''!=userName">
+                and user_name like '%${userName}%'
+            </if>
+            <if test="null!=startTime and ''!=startTime">
+                <![CDATA[
+                and create_time >='${startTime} 00:00:00'
+             ]]>
+            </if>
+            <if test="null!=endTime and ''!=endTime">
+                <![CDATA[
+              and create_time <= '${endTime} 23:59:59'
+            ]]>
+            </if>
+        </where>
+    </sql>
+
+    <sql id="base_column_list">
+    id, spit_slot_id, content, create_time, user_id, user_name, user_icon,source_from
+  </sql>
+
+    <select id="selectListBySpitSlotId" resultMap="BaseResultMap">
+        select
+        <include refid="base_column_list"/>
+        from crane_spit_slot_comment where spit_slot_id = #{spitSlotId}
+        order by create_time desc limit 0,5
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="base_column_list"/>
+        from crane_spit_slot_comment
+        <include refid="base_condition"></include>
+        order by create_time desc
+        <if test="null!=page">
+            limit #{page.start},#{page.end}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(1) from crane_spit_slot_comment
+        <include refid="base_condition"></include>
+    </select>
+
+    <insert id="insert" parameterType="com.crane.po.model.SpitSlotComment">
+    insert into crane_spit_slot_comment (spit_slot_id, content, create_time, user_id, user_name, user_icon,source_from)
+    values (#{spitSlotId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+    #{userIcon,jdbcType=VARCHAR},#{sourceFrom,jdbcType=VARCHAR})
+  </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from crane_spit_slot_comment
+        <include refid="base_condition"/>
+    </delete>
+</mapper>

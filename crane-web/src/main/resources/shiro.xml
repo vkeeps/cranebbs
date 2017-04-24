@@ -94,16 +94,16 @@
 		<property name="authorizationCacheName" value="authorizationCache" />
 	</bean>
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher" class="com.crane.util.RetryLimitHashedCredentialsMatcher">
+	<!-- <bean id="credentialsMatcher" class="com.crane.util.RetryLimitHashedCredentialsMatcher">
 		<constructor-arg ref="cacheManager" />
-		<!-- 此处设置短时间内出错次数 -->
+		此处设置短时间内出错次数
 		<property name="errorTimes" value="6"></property>
-		<!-- 设置SHIRO加密方式,需要和util里的加密方法保持一致 -->
+		设置SHIRO加密方式,需要和util里的加密方法保持一致
 		<property name="hashAlgorithmName" value="MD5" />
-		<!-- 设置SHIRO加密次数 -->
+		设置SHIRO加密次数
 		<property name="hashIterations" value="3" />
 		<property name="storedCredentialsHexEncoded" value="true" />
-	</bean>
+	</bean> -->
 	<!-- securityManager -->
 	<bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -122,9 +122,9 @@
 		<property name="securityManager" ref="securityManager" />
 	</bean>
 	<!-- 缓存管理器 使用Ehcache实现 -->
-	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+	<!-- <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
-	</bean>
+	</bean> -->
 	<!-- URL权限验证方法 -->
 	<bean id="resourceCheckFilter" class="com.crane.filter.ResourceCheckFilter">
 		<!-- 设置当前用户无权限访问当前链接时跳转的页面 -->

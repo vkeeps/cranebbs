@@ -1,40 +1,22 @@
 body{margin: 0px auto;padding: 0px;}
 *{font-family: 'Microsoft Yahei','Helvetica Neue',sans-serif,SimHei;font-size: 13px;}
+/*页面头部*/
 .head{background: #458FCE;min-height: 100px;padding-top: 20px;text-align: center;position: relative;}
 .head .head-logo{width: auto;}
 .head .head-logo a{font-size: 18px;color: #ffffff;text-decoration: none;}
 .head .head-logo a h3{margin-top: 10px;margin-bottom: 5px;}
-.head .header-user-info{
-	padding-top: 16px;
-	padding-bottom: 6px;
-	float:right;
-}
-.head .header-user-info .no-login{
-	text-align: center;
-	margin-top: 5px;
-	float: left;
-	padding-left:10px;
-}
-.head .header-user-info .no-login .line{
-	display: inline-block;
-	padding: 0px 6px;
-	color: #ffffff;
-}
-.head .header-user-info .no-login a{
-	margin-left: 5px;
-	margin-right: 5px;
-	text-decoration: none;
-	font-size: 18px;
-	color: #ffffff;
-}
-.head .header-user-info .no-login a:hover{
-	color: #ff5c18;
-}
+.head .header-user-info{padding-top: 16px;padding-bottom: 6px;float:right;}
+.head .header-user-info .user-info{float:right;margin-right:15px;}
+.head .header-user-info .no-login{text-align: center;margin-top: 5px;float: left;padding-left:10px;}
+.head .header-user-info .no-login .line{display: inline-block;padding: 0px 6px;color: #ffffff;}
+.head .header-user-info .no-login a{margin-left: 5px;margin-right: 5px;text-decoration: none;font-size: 18px;color: #ffffff;}
+.head .header-user-info .no-login a:hover{color: #ff5c18;}
 
 /*图标区*/
 .head .header-user-info .icon-search{background: url("../../images/icons/search-icon1.png") 0 0 no-repeat;width: 34px;
 	height: 34px;display: inline-block;margin-left:10px;margin-right: 8px;float: left;cursor: pointer;}
 .head .header-user-info .icon-search:hover{background: url("../../images/icons/search-icon2.png") 0 0 no-repeat;}
+/*清除对象两边的浮动效果，即:有该元素如果设置了浮动，则无效，撑开成一行*/
 .clear{clear: both}
 /************导航****************/
 .banner{background: #ECEEEE;text-align: center;position: relative;margin-bottom:20px}

@@ -2,16 +2,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-2 left head-logo">
-                <a href="#">
+                <a href="${absolutePath}">
                     <h3>&nbsp;修&nbsp;仙</h3>
                     <h5>www.xiuxian.com</h5>
                 </a>
             </div>
-            <div class="col-sm-3 col-sm-offset-7 header-user-info">
+            <div class="col-sm-3 col-sm-offset-6 header-user-info">
                 <i class="icon-search" id="search-btn"></i>
 				<#if Session["session_user_key"]??>
-				<div>欢迎回来，<img class="img-circle" src="${absolutePath}/upload/${session_user_key.userIcon}" style="width: 30px;height:30px;">
-				<span><a style="color: yellow;">${session_user_key.userName}</a></span>
+				<div class="user-info">欢迎回来，<img class="img-circle" src="${absolutePath}/upload/${session_user_key.userIcon}" style="width: 30px;height:30px;">
+					<span><a style="color: yellow;">${session_user_key.userName}</a></span>
 				</div>
 				<#else>
                 <div class="no-login">
@@ -27,34 +27,24 @@
 <div class="nav banner">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header">
-                    <span class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
-                        <span class="sr-only">切换导航</span>
-                        <i class="icon-bar"></i>
-                        <i class="icon-bar"></i>
-                        <i class="icon-bar"></i>
-                    </span>
-                </div>
-                <div class="navbar-collapse collapse banner-menu" id="main-menu" role="navigation">
+            <div class="col-sm-12 navbar-collapse collapse banner-menu" id="main-menu" role="navigation">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="${absolutePath}">首&nbsp;页</a></li>
                         <li><a href="${absolutePath}/signin" title="签到">签&nbsp;到</a></li>
                         <li><a href="${absolutePath}/spitslot" title="吐槽">吐&nbsp;槽</a></li>
-                        <li><a href="${absolutePath}/bbs" title="讨论区">讨论区</a></li>
+                        <li><a href="${absolutePath}/bbs" title="社区">社&nbsp;区</a></li>
                         <li><a href="${absolutePath}/ask" title="问答">问&nbsp;答</a></li>
                         <li><a href="${absolutePath}/blog" title="博客">博&nbsp;客</a></li>
-                        <li><a href="${absolutePath}/knowledge" title="知识库">知识库</a></li>
+                        <li><a href="${absolutePath}/about" title="关于社区">关于社区</a></li>
                     </ul>
                     <div class="banner-menu-line"></div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 <script>
     $(function(){
-    	crane.menus = [crane.absolutePath+"/","#","signin","spitslot","exam","knowledge","bbs","ask","blog"];
+    	crane.menus = [crane.absolutePath+"/","signin","spitslot","bbs","ask","blog","about"];
 		crane.ignoreMenus = ["login","regist"];
 	     for(var i=0,_len=crane.ignoreMenus.length,item;i<_len,item=crane.ignoreMenus[i];i++){
 		 	if(crane.curUrl.indexOf(item)!=-1){
@@ -95,6 +85,13 @@
 			$(this).button('loading').delay(1000).queue(function(){
 			});
 		}); */
+		//获取屏幕宽度做响应式导航(未完善)二〇一七年四月十九日 19:13:19
+		if($("body").outerWidth()<690){
+			$(".banner .container .row .col-sm-12").prepend("<div class='navbar-header'>"+
+					"<i class='navbar-toggle fa fa-bars' data-toggle='collapse' data-target='#main-menu'>"+
+					"<span class='sr-only'>切换导航</span></i>"+
+					"<a class='navbar-brand' href='${absolutePath}'>修仙导航</a></div>");
+		}
     });
 </script>
 <script src="${absolutePath}/resource/js/common/particle.js" count="200" zindex="-2" opacity="0.8" color="66,135,193" type="text/javascript"></script>
